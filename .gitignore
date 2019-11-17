@@ -3,6 +3,9 @@
 *.iml
 *.xml
 
+#Output
+.out/
+
 # Compiled class file
 *.class
 

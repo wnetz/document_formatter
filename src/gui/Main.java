@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = new FormatPage();
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+    public void start(Stage primaryStage) {
+        Parent root = new MainPage();
+        primaryStage.setTitle("Document Formatter");
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
