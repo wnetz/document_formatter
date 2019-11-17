@@ -10,6 +10,6 @@ public class FormattedTextArea extends TextArea {
     {
         super();
         super.setEditable(false);
-        super.setMinSize(700, 400);
+        super.setMinSize(700, 300);
     }
 }

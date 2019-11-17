@@ -22,6 +22,7 @@ public class MainPage extends VBox {
 
     private FileChooser fileChooser;
     private FormattedTextArea formattedTextArea;
+    private ConsoleTextFlow console;
 
     public MainPage()
     {
@@ -32,6 +33,7 @@ public class MainPage extends VBox {
         title.setTranslateX(super.getWidth()/2);
 
         formattedTextArea = new FormattedTextArea();
+        console = new ConsoleTextFlow();
 
         Menu files = new Menu("File");
         MenuItem openFile = new MenuItem("Load");
@@ -45,7 +47,7 @@ public class MainPage extends VBox {
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().addAll(files, help);
 
-        super.getChildren().addAll(menuBar, title, formattedTextArea);
+        super.getChildren().addAll(menuBar, title, formattedTextArea, console);
     }
 
     private static boolean isTextFile(File file)
@@ -60,14 +62,17 @@ public class MainPage extends VBox {
             File file = fileChooser.showOpenDialog(new Stage());
             if(isTextFile(file) && file.canRead()) {
                 formattedTextArea.clear();
+                console.clear();
                 try {
                     ArrayList<String> outputDoc = TextProcessor.processInputFile(file);
                     for(String line : outputDoc) {
                         formattedTextArea.appendText(line);
                     }
                 } catch (IOException ex) {
-                    System.out.println(ex);
+                    console.logError(ex.toString());
                 }
+            } else {
+                console.logError("The file selected is not a valid text file.");
             }
         }
     }
@@ -79,6 +84,8 @@ public class MainPage extends VBox {
             File file = fileChooser.showSaveDialog(new Stage());
             if(isTextFile(file) && file.canWrite()) {
                 System.out.println(file);
+            } else {
+                console.logError("The path could not be written to. Please use a valid .txt file.");
             }
         }
     }
